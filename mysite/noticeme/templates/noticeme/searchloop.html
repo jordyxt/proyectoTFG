@@ -6,6 +6,9 @@
         {% if value|get:"kind" == 'deck' %}
             {% include "noticeme/searchloop.html" with content_result=value|get:"slides" %}
         {% else %}
+            <div  style="border-style: solid;border-color:red">
+            {{ value|get:"slide"|safe }}
+            </div>
             <ul>
             {% if value|get:"attached" == 'no' %}
                 <li>it's not an attached slide</li>
