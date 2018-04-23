@@ -1,0 +1,27 @@
+{% extends "noticeme/header.html" %}
+{% block content %}
+<div style="margin-top:125px"></div>
+<div class="row" id="table-row" style="margin-top:25%">
+    <div id="content">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 search-box">
+            <div class="search-bar">
+                <form class="search" id="search"  action={% url 'search' %} >
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">Deck ID</span>
+                        <input type="text" id="deck-search" class="form-control input-lg" name="deckId" placeholder="Slidewiki Deck ID" >
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-lg" id="search-btn" type="submit"><span class="glyphicon glyphicon-search" ></span></button>
+                        </span>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+    </div>
+    <a id=x1></a>
+    <div id="test" ></div>
+    
+        
+{% endblock %}

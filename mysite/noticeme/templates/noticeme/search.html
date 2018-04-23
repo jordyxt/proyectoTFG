@@ -1,0 +1,15 @@
+{% extends "noticeme/header.html" %}
+{% block content %}
+<div style=" border-radius:25px;margin-top:50px; padding-top:1px; padding-bottom:10px;">
+    <div style="margin-left:10px; margin-right:10px;">
+      <div class="page-header">
+        <h1>Search Results...</h1>
+      </div>
+      <p>For the deck with the id {{content}} : </p>
+      {% block content_result %}
+        {% include "noticeme/searchloop.html" %}  
+      {% endblock%}
+    </div>
+  </div>
+  {% endblock %}
+  

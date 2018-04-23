@@ -1,0 +1,27 @@
+{% load noticeme_extras %}
+{% if content_result %}
+    {% for key, value in content_result.items %} 
+        <ul><li><p>{{key}}:</p></li>
+        <!--{% dictKeyLookup value "attached" as dicttest %}-->
+        {% if value|get:"kind" == 'deck' %}
+            {% include "noticeme/searchloop.html" with content_result=value|get:"slides" %}
+        {% else %}
+            <ul>
+            {% if value|get:"attached" == 'no' %}
+                <li>it's not an attached slide</li>
+            {% else %}
+                <li>it's an attached slide 
+                {% if value|get:"updated" == 'yes' %}
+                    (updated version)
+                {% else %}
+                    (outdated version)
+                {% endif %}
+                </li>
+            {% endif %}
+            </ul>
+        {% endif %}
+        </ul>
+    {% endfor %}
+{% else %} 
+    <p>The deck doesn't exist </p>
+{% endif %}
