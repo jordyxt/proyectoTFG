@@ -30,7 +30,7 @@ def buscadecks(deck):
             data = getjson(url)
             resultado['slide '+str(slide['order'])]={}
             resultado['slide '+str(slide['order'])]['kind']='slide'
-            resultado['slide '+str(slide['order'])]['slide']=data['revisions'][-1]['content']
+            #resultado['slide '+str(slide['order'])]['slide']=data['revisions'][-1]['content']
             if data['revisions'][0]['parent']==None:
                 #"it's not an attached slide
                 resultado['slide '+str(slide['order'])]['attached']='no'
