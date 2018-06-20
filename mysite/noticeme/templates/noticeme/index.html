@@ -1,4 +1,5 @@
 {% extends "noticeme/header.html" %}
+{% load staticfiles %}
 {% block content %}
 <div style="margin-top:125px"></div>
 <div class="row" id="table-row" style="margin-top:25%">
@@ -6,7 +7,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 search-box">
             <div class="search-bar">
-                <form class="search" id="search"  action={% url 'search' %} >
+                <form class="search" action={% url 'search' %}  >
                     <div class="input-group input-group-lg">
                         <span class="input-group-addon">Deck ID</span>
                         <input type="text" id="deck-search" class="form-control input-lg" name="deckId" placeholder="Slidewiki Deck ID" >
@@ -23,5 +24,5 @@
     <a id=x1></a>
     <div id="test" ></div>
     
-        
+<script src="{% static 'noticeme/js/deckinfo.js' %}" type="text/javascript"></script>       
 {% endblock %}

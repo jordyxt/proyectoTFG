@@ -1,29 +1,45 @@
 {% load noticeme_extras %}
+<p id="demo"></p>
 {% if content_result %}
-    {% for key, value in content_result.items %} 
-        <ul><li><p>{{key}}:</p></li>
+{% dictKeyLookup content_result "id" as deckid %}
+    {% for value in content_result|get:'slides' %} 
+    <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                 {% dictKeyLookup value "order" as orderid %}
+              <a data-toggle="collapse" href={{"#collapse"|addstr:deckid|addstr:orderid}}>Order: {{value|get:"order"}}
+                  <span class="glyphicon glyphicon-plus-sign pull-right"></span></a>
+            </h4>
+        </div>
+        <div id={{"collapse"|addstr:deckid|addstr:orderid}} class="panel-collapse collapse">
+          <ul class="list-group">
         <!--{% dictKeyLookup value "attached" as dicttest %}-->
         {% if value|get:"kind" == 'deck' %}
-            {% include "noticeme/searchloop.html" with content_result=value|get:"slides" %}
+        <li class="list-group-item">Kind: Deck</li>
+        <li class="list-group-item">
+                {% include "noticeme/searchloop.html" with content_result=value|get:"slides" %}
+        </li>
         {% else %}
             <!--<div  style="border-style: solid;border-color:red">
             {{ value|get:"slide"|safe }}
             </div>-->
-            <ul>
-            {% if value|get:"attached" == 'no' %}
-                <li>it's not an attached slide</li>
+            <li class="list-group-item">Kind: slide</li>
+            {% if value|get:"attached" == False %}
+            <li class="list-group-item">Attached: No</li>
             {% else %}
-                <li>it's an attached slide 
-                {% if value|get:"updated" == 'yes' %}
-                    (updated version)
+            <li class="list-group-item">Attached: Yes</li>
+                {% if value|get:"updated" == True %}
+                <li class="list-group-item">Updated: Yes</li>
                 {% else %}
-                    (outdated version)
+                <li class="list-group-item">Updated: No</li>
                 {% endif %}
-                </li>
             {% endif %}
-            </ul>
         {% endif %}
         </ul>
+    </div>
+</div>
+</div>
     {% endfor %}
 {% else %} 
     <p>The deck doesn't exist </p>

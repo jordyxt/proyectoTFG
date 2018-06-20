@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
-#from .modules.deckjson import buscadecks
-from .modules.deckhtml import buscadecks
+from .modules.deckjson import buscadecks
+#from .modules.deckhtml import buscadecks
 # Create your views here.
 from django.http import HttpResponse
 
@@ -10,6 +10,9 @@ from rest_framework import viewsets
 from .serializers import UserSerializer, GroupSerializer
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
+from django.views.decorators.csrf import csrf_exempt
+
+import requests
 
 class JSONResponse(HttpResponse):
     """
@@ -19,7 +22,8 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
+        
+@csrf_exempt
 def deck_detail(request, pk):
     if request.method == 'GET':
          resultado=buscadecks(pk)
@@ -55,4 +59,5 @@ def search(request):
     template =loader.get_template("noticeme/search.html")
     pA = request.GET.get('deckId')
     resultado=buscadecks(pA)
-    return HttpResponse(template.render({'content':pA ,'content_result':resultado}))
+    response = requests.get('http://localhost:8000/noticeme/deckinfo/'+pA).json()
+    return HttpResponse(template.render({'content':pA ,'content_result':response}))

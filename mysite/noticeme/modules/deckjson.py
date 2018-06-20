@@ -17,6 +17,7 @@ def getjson(url):
 def buscadecks(deck):
     
     resultado={}
+    resultado['id']=deck
     url = 'https://deckservice.slidewiki.org/deck/'+str(deck)
     resp = requests.get(url=url)
     data = resp.json()
@@ -24,20 +25,23 @@ def buscadecks(deck):
     if status == 404:
         return resultado
     docker=data['revisions'][0]['contentItems']
+    slideList=[]
     for slide in docker:
+        slideitem={}
+        slideitem['order']=slide['order']
+        slideitem['kind']=slide['kind']
         if slide['kind']=='slide':
             url = 'https://deckservice.slidewiki.org/slide/'+str(slide['ref']['id'])
             data = getjson(url)
-            resultado['slide '+str(slide['order'])]={}
-            resultado['slide '+str(slide['order'])]['kind']='slide'
+            #resultado['slide '+str(slide['order'])]['kind']='slide'
             #resultado['slide '+str(slide['order'])]['slide']=data['revisions'][-1]['content']
             if data['revisions'][0]['parent']==None:
                 #"it's not an attached slide
-                resultado['slide '+str(slide['order'])]['attached']='no'
+                slideitem['attached']=False
             else:
-                resultado['slide '+str(slide['order'])]['attached']='yes'
+                slideitem ['attached']=True
                 oldrevision=data['revisions'][0]['parent']['revision']
-                resultado['slide '+str(slide['order'])]['origin']=data['revisions'][0]['parent']
+                slideitem['origin']=data['revisions'][0]['parent']
                 url = 'https://deckservice.slidewiki.org/slide/'+str(data['revisions'][0]['parent']['id'])
                 resp = requests.get(url=url)
                 data = resp.json()
@@ -51,17 +55,17 @@ def buscadecks(deck):
                 insert=parsed_html.find_all('ins')
                 delete=parsed_html.find_all('del')
                 if(len(insert)==0 and len (delete)==0):
-                    resultado['slide '+str(slide['order'])]['updated']='yes'
+                    slideitem['updated']=True
                 else:
                     #existe version mas actual de la slide
-                    resultado['slide '+str(slide['order'])]['updated']='no'
-                    resultado['slide '+str(slide['order'])]['updated slide'] = str(data['revisions'][-1]['id'])
+                    slideitem['updated']=False
+                    slideitem['updated version'] = data['revisions'][-1]['id']
                
         else:
             #print(slide['ref']['id'])
-            resultado['deck '+str(slide['order'])]={}
-            resultado['deck '+str(slide['order'])]['kind']='deck'
-            resultado['deck '+str(slide['order'])]['slides']=buscadecks(slide['ref']['id'])
+            slideitem['slides']=buscadecks(slide['ref']['id'])
+        slideList.append(slideitem)
+    resultado['slides']=slideList
     return resultado
 
 #print(buscadecks(105268))
