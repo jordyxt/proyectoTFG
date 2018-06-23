@@ -59,5 +59,8 @@ def search(request):
     template =loader.get_template("noticeme/search.html")
     pA = request.GET.get('deckId')
     resultado=buscadecks(pA)
-    response = requests.get('http://localhost:8000/noticeme/deckinfo/'+pA).json()
+    try:
+        response = requests.get('http://localhost:8000/noticeme/deckinfo/'+pA).json()
+    except ConnectionError:
+        response={}
     return HttpResponse(template.render({'content':pA ,'content_result':response}))

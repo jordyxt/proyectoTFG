@@ -18,7 +18,7 @@
         {% if value|get:"kind" == 'deck' %}
         <li class="list-group-item">Kind: Deck</li>
         <li class="list-group-item">
-                {% include "noticeme/searchloop.html" with content_result=value|get:"slides" %}
+                {% include "noticeme/searchloop.html" with content_result=value %}
         </li>
         {% else %}
             <!--<div  style="border-style: solid;border-color:red">
