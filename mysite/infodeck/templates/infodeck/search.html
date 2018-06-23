@@ -1,8 +1,8 @@
-{% extends "noticeme/header.html" %}
-{% block title %}Notice me - Search{% endblock %}
+{% extends "infodeck/header.html" %}
+{% block title %}InfoDeck - Search{% endblock %}
 {% load staticfiles %}
 {% block customcss %}
-<link href="{% static 'noticeme/css/search.css' %}" rel="stylesheet" type="text/css"></link>  
+<link href="{% static 'infodeck/css/search.css' %}" rel="stylesheet" type="text/css"></link>  
 {% endblock %}
 {% block content %}
 <main role="main" class="container">
@@ -14,7 +14,7 @@
       </div>
       <p>For the deck with the id {{content}} : </p>
       {% block content_result %}
-        {% include "noticeme/searchloop.html" %}  
+        {% include "infodeck/searchloop.html" %}  
       {% endblock%}
     </div>
   </div>
@@ -22,5 +22,5 @@
 </main>
   {% endblock %}
 {% block customjs %}
-<script src="{% static 'noticeme/js/search.js' %}" type="text/javascript"></script>
+<script src="{% static 'infodeck/js/search.js' %}" type="text/javascript"></script>
 {% endblock %}

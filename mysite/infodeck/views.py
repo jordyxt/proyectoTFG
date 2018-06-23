@@ -47,20 +47,20 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 from django.http import HttpResponse
 def index(request):  
-    template =loader.get_template("noticeme/index.html")
+    template =loader.get_template("infodeck/index.html")
     #return HttpResponse( "Hello, world. This is my first Django app." )
     return HttpResponse(template.render())
 def about(request):  
-    template =loader.get_template("noticeme/about.html")
+    template =loader.get_template("infodeck/about.html")
     #return HttpResponse( "Hello, world. This is my first Django app." )
     return HttpResponse(template.render())
 
 def search(request):  
-    template =loader.get_template("noticeme/search.html")
+    template =loader.get_template("infodeck/search.html")
     pA = request.GET.get('deckId')
     resultado=buscadecks(pA)
     try:
-        response = requests.get('http://localhost:8000/noticeme/deckinfo/'+pA).json()
+        response = requests.get('http://localhost:8000/infodeck/deckinfo/'+pA).json()
     except ConnectionError:
         response={}
     return HttpResponse(template.render({'content':pA ,'content_result':response}))

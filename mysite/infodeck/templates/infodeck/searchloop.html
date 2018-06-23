@@ -1,4 +1,4 @@
-{% load noticeme_extras %}
+{% load infodeck_extras %}
 <p id="demo"></p>
 {% if content_result %}
 {% dictKeyLookup content_result "id" as deckid %}
@@ -18,7 +18,7 @@
         {% if value|get:"kind" == 'deck' %}
         <li class="list-group-item">Kind: Deck</li>
         <li class="list-group-item">
-                {% include "noticeme/searchloop.html" with content_result=value %}
+                {% include "infodeck/searchloop.html" with content_result=value %}
         </li>
         {% else %}
             <!--<div  style="border-style: solid;border-color:red">
