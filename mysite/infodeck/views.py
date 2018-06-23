@@ -60,7 +60,7 @@ def search(request):
     pA = request.GET.get('deckId')
     resultado=buscadecks(pA)
     try:
-        response = requests.get('http://localhost:8000/infodeck/deckinfo/'+pA).json()
+        response = requests.get('http://localhost:8000/infodeck/api/deck/'+pA).json()
     except ConnectionError:
         response={}
     return HttpResponse(template.render({'content':pA ,'content_result':response}))

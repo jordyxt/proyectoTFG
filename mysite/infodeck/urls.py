@@ -13,5 +13,5 @@ urlpatterns = [
  path('search', views.search, name='search'),
  url(r'^', include(router.urls)),
  url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), 
- url(r'^deckinfo/(?P<pk>[0-9]+)/$', views.deck_detail),
+ url(r'^api/deck/(?P<pk>[0-9]+)/$', views.deck_detail),
 ]

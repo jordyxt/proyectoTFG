@@ -25,7 +25,7 @@ SECRET_KEY = '(s@551v$!&_j&@vto59n=s-bg39jcx=!47krr$@-hom2^e(3g2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['infodeck.herokuapp.com', '.yourdomain.com']
 
 
 # Application definition
@@ -122,5 +122,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# add this
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 
